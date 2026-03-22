@@ -2,13 +2,12 @@ name: Build APK
 
 on:
   push:
-      branches: [ main ]
+      branches: [main]
         workflow_dispatch:
 
         jobs:
           build-apk:
               runs-on: ubuntu-latest
-
                   steps:
                         - name: Checkout repository
                                 uses: actions/checkout@v4
@@ -23,19 +22,19 @@ on:
                                                                                         uses: subosito/flutter-action@v2
                                                                                                 with:
                                                                                                           channel: stable
-                                                                                                          
-                                                                                                                - name: Create missing platform files
-                                                                                                                        run: flutter create .
-                                                                                                                        
-                                                                                                                              - name: Install dependencies
-                                                                                                                                      run: flutter pub get
-                                                                                                                                      
-                                                                                                                                            - name: Build debug APK
-                                                                                                                                                    run: flutter build apk --debug
-                                                                                                                                                    
-                                                                                                                                                          - name: Upload APK artifact
-                                                                                                                                                                  uses: actions/upload-artifact@v4
-                                                                                                                                                                          with:
-                                                                                                                                                                                    name: konoz-misr-debug-apk
-                                                                                                                                                                                              path: build/app/outputs/flutter-apk/app-debug.apk
-                                                                                                                                                                                              
+                                                                                                                    cache: true
+                                                                                                                    
+                                                                                                                          - name: Create missing platform files
+                                                                                                                                  run: flutter create .
+                                                                                                                                  
+                                                                                                                                        - name: Install dependencies
+                                                                                                                                                run: flutter pub get
+                                                                                                                                                
+                                                                                                                                                      - name: Build debug APK
+                                                                                                                                                              run: flutter build apk --debug
+                                                                                                                                                              
+                                                                                                                                                                    - name: Upload APK artifact
+                                                                                                                                                                            uses: actions/upload-artifact@v4
+                                                                                                                                                                                    with:
+                                                                                                                                                                                              name: konoz-misr-debug-apk
+                                                                                                                                                                                                        path: build/app/outputs/flutter-apk/app-debug.apk
